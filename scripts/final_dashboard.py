@@ -16,8 +16,14 @@ PREDICTIONS = (
     if LOCAL_PREDICTIONS.exists()
     else CLOUD_PREDICTIONS
 )
-DATAOPS_LOG = BASE / "logs" / "dataops_scheduler.log"
+LOCAL_DATAOPS_LOG = BASE / "logs" / "dataops_scheduler.log"
+CLOUD_DATAOPS_LOG = BASE / "deployment" / "dataops_scheduler.log"
 
+DATAOPS_LOG = (
+    LOCAL_DATAOPS_LOG
+    if LOCAL_DATAOPS_LOG.exists()
+    else CLOUD_DATAOPS_LOG
+)
 # Local metrics preferred; cloud deployment metrics as fallback
 LOCAL_METRICS = BASE / "logs" / "model_metrics.csv"
 CLOUD_METRICS = BASE / "deployment" / "model_metrics.csv"
