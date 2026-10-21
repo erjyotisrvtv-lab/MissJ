@@ -8,6 +8,14 @@ from pathlib import Path
 BASE = Path(__file__).resolve().parent.parent
 
 PREDICTIONS = BASE / "logs" / "auto_predictions.csv"
+LOCAL_PREDICTIONS = BASE / "logs" / "auto_predictions.csv"
+CLOUD_PREDICTIONS = BASE / "deployment" / "auto_predictions.csv"
+
+PREDICTIONS = (
+    LOCAL_PREDICTIONS
+    if LOCAL_PREDICTIONS.exists()
+    else CLOUD_PREDICTIONS
+)
 DATAOPS_LOG = BASE / "logs" / "dataops_scheduler.log"
 
 # Local metrics preferred; cloud deployment metrics as fallback
