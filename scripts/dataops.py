@@ -1,4 +1,3 @@
-
 from apscheduler.schedulers.blocking import BlockingScheduler
 from pathlib import Path
 from datetime import datetime
@@ -8,7 +7,7 @@ import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_DIR = BASE_DIR / "logs"
-LOG_DIR.mkdir(exist_ok=True)
+LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(
     filename=LOG_DIR / "dataops_scheduler.log",
@@ -17,12 +16,17 @@ logging.basicConfig(
     encoding="utf-8"
 )
 
+
 def run_data_pipeline():
     start_time = datetime.now()
     print(f"\nPipeline started: {start_time}", flush=True)
     logging.info("DataOps pipeline started")
 
-    for script in ["preprocessing.py", "eda.py"]:
+    for script in [
+        "extract_dataset.py",
+        "preprocessing.py",
+        "eda.py"
+    ]:
         script_path = BASE_DIR / "scripts" / script
 
         try:
@@ -34,22 +38,21 @@ def run_data_pipeline():
                 check=True
             )
 
-            logging.info("%s executed successfully", script)
-            print(f"SUCCESS: {script}", flush=True)
+            print(f"{script} completed successfully", flush=True)
+            logging.info("%s completed successfully", script)
 
-            output_file = LOG_DIR / f"{script}_latest.log"
-            output_file.write_text(
-                result.stdout,
-                encoding="utf-8"
-            )
+            if result.stdout:
+                print(result.stdout, flush=True)
 
         except subprocess.CalledProcessError as error:
+            print(f"Error in {script}: {error.stderr}", flush=True)
             logging.error("%s failed: %s", script, error.stderr)
-            print(f"FAILED: {script}", flush=True)
+            return
 
-    duration = (datetime.now() - start_time).total_seconds()
-    logging.info("Pipeline finished in %.2f seconds", duration)
-    print(f"Pipeline duration: {duration:.2f} seconds", flush=True)
+    end_time = datetime.now()
+    logging.info("DataOps pipeline completed successfully")
+    print(f"Pipeline completed: {end_time}", flush=True)
+
 
 scheduler = BlockingScheduler()
 
@@ -62,13 +65,14 @@ scheduler.add_job(
     coalesce=True
 )
 
-print("DataOps Scheduler Started")
-print("Pipeline interval: Every 2 minutes")
-print("Press Ctrl+C to stop")
+if __name__ == "__main__":
+    print("DataOps Scheduler Started")
+    print("Pipeline interval: Every 2 minutes")
+    print("Press Ctrl+C to stop")
 
-run_data_pipeline()
+    run_data_pipeline()
 
-try:
-    scheduler.start()
-except (KeyboardInterrupt, SystemExit):
-    print("Scheduler stopped")
+    try:
+        scheduler.start()
+    except (KeyboardInterrupt, SystemExit):
+        print("Scheduler stopped")
