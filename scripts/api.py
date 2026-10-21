@@ -9,7 +9,14 @@ from pydantic import BaseModel
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODEL_FILE = BASE_DIR / "models" / "random_forest.pkl"
-METRICS_FILE = BASE_DIR / "logs" / "model_metrics.csv"
+LOCAL_METRICS_FILE = BASE_DIR / "logs" / "model_metrics.csv"
+CLOUD_METRICS_FILE = BASE_DIR / "deployment" / "model_metrics.csv"
+
+METRICS_FILE = (
+    LOCAL_METRICS_FILE
+    if LOCAL_METRICS_FILE.is_file()
+    else CLOUD_METRICS_FILE
+)
 DATA_FILE = BASE_DIR / "data" / "UNSW_NB15_training-set.csv"
 FEATURES = [
     "dur", "spkts", "dpkts", "sbytes", "dbytes", "rate", "sttl",
