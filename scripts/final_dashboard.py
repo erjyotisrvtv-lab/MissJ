@@ -1,15 +1,30 @@
-
-import streamlit as st
+import os
 import pandas as pd
 import requests
 import re
+import streamlit as st
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent.parent
+
 PREDICTIONS = BASE / "logs" / "auto_predictions.csv"
 DATAOPS_LOG = BASE / "logs" / "dataops_scheduler.log"
-METRICS = BASE / "logs" / "model_metrics.csv"
-API_URL = "http://127.0.0.1:8000"
+
+# Local metrics preferred; cloud deployment metrics as fallback
+LOCAL_METRICS = BASE / "logs" / "model_metrics.csv"
+CLOUD_METRICS = BASE / "deployment" / "model_metrics.csv"
+
+METRICS = (
+    LOCAL_METRICS
+    if LOCAL_METRICS.exists()
+    else CLOUD_METRICS
+)
+
+API_URL = os.getenv(
+    "API_URL",
+    "http://127.0.0.1:8000"
+).rstrip("/")
+
 
 st.set_page_config(
     page_title="Enterprise Network Security Dashboard",
