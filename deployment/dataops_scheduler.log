@@ -548,3 +548,9 @@
 2026-10-21 22:21:07,869 | INFO | eda.py executed successfully
 2026-10-21 22:21:07,872 | INFO | Pipeline finished in 48.78 seconds
 2026-10-21 22:21:07,873 | INFO | Job "run_data_pipeline (trigger: interval[0:02:00], next run at: 2026-10-21 22:22:19 IST)" executed successfully
+2026-10-21 22:22:19,093 | INFO | Running job "run_data_pipeline (trigger: interval[0:02:00], next run at: 2026-10-21 22:24:19 IST)" (scheduled at 2026-10-21 22:22:19.081555+05:30)
+2026-10-21 22:22:19,094 | INFO | DataOps pipeline started
+2026-10-21 22:22:37,800 | INFO | preprocessing.py executed successfully
+2026-10-21 22:22:56,881 | INFO | eda.py executed successfully
+2026-10-21 22:22:56,882 | INFO | Pipeline finished in 37.79 seconds
+2026-10-21 22:22:56,883 | INFO | Job "run_data_pipeline (trigger: interval[0:02:00], next run at: 2026-10-21 22:24:19 IST)" executed successfully
