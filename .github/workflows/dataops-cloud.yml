@@ -1,0 +1,49 @@
+name: Cloud DataOps Automation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  dataops-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Extract Dataset
+        run: python scripts/extract_dataset.py
+
+      - name: Run Preprocessing
+        run: python scripts/preprocessing.py
+
+      - name: Run EDA
+        run: python scripts/eda.py
+
+      - name: Upload DataOps Evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dataops-evidence-${{ github.run_id }}
+          path: |
+            logs/
+            outputs/
+            charts/
+          if-no-files-found: warn
+          retention-days: 7
