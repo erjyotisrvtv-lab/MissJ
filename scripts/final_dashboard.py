@@ -13,6 +13,7 @@ def get_secret(key, default=""):
         return default
 
 BASE = Path(__file__).resolve().parent.parent
+DATAOPS_LOG = BASE / "deployment" / "dataops_scheduler.log"
 # GitHub repository configuration
 GITHUB_OWNER = "erjyotisrvtv-lab"
 GITHUB_REPO = "MissJ"
