@@ -13,6 +13,15 @@ def get_secret(key, default=""):
         return default
 
 BASE = Path(__file__).resolve().parent.parent
+# GitHub repository configuration
+GITHUB_OWNER = "erjyotisrvtv-lab"
+GITHUB_REPO = "MissJ"
+GITHUB_LOG_BRANCH = "dataops-logs"
+GITHUB_WORKFLOW = "dataops-cloud.yml"
+
+GITHUB_RUNS_PAGE = (
+    f"https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}/actions"
+)
 
 PREDICTIONS = BASE / "logs" / "auto_predictions.csv"
 LOCAL_PREDICTIONS = BASE / "logs" / "auto_predictions.csv"
