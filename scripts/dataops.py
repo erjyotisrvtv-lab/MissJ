@@ -39,7 +39,7 @@ def run_data_pipeline():
             )
 
             print(f"{script} completed successfully", flush=True)
-            logging.info("%s completed successfully", script)
+            logging.info("DataOps pipeline completed successfully")
 
             if result.stdout:
                 print(result.stdout, flush=True)
@@ -52,6 +52,32 @@ def run_data_pipeline():
     end_time = datetime.now()
     logging.info("DataOps pipeline completed successfully")
     print(f"Pipeline completed: {end_time}", flush=True)
+    
+    # Upload successful DataOps execution to GitHub
+    duration_seconds = (end_time - start_time).total_seconds()
+
+    try:
+        sync_result = subprocess.run(
+            [
+                sys.executable,
+                str(BASE_DIR / "scripts" / "github_dataops_sync.py"),
+                "success",
+                str(round(duration_seconds, 2)),
+            ],
+            cwd=BASE_DIR,
+            capture_output=True,
+            text=True,
+            timeout=90,
+            check=True,
+        )
+
+        logging.info("GitHub DataOps synchronization successful")
+        print(sync_result.stdout.strip(), flush=True)
+
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
+        logging.warning("GitHub DataOps synchronization failed: %s", error)
+        print("WARNING: Cloud synchronization failed", flush=True)
+
 
 
 scheduler = BlockingScheduler()
