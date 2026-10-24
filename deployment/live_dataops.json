@@ -186,6 +186,12 @@
       "status": "success",
       "duration_seconds": 48.5,
       "source": "local_dataops_scheduler"
+    },
+    {
+      "timestamp_utc": "2026-10-24T09:36:47.338404+00:00",
+      "status": "success",
+      "duration_seconds": 45.95,
+      "source": "local_dataops_scheduler"
     }
   ]
 }
