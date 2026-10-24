@@ -48,6 +48,12 @@
       "status": "success",
       "duration_seconds": 47.35,
       "source": "local_dataops_scheduler"
+    },
+    {
+      "timestamp_utc": "2026-10-24T08:50:40.420270+00:00",
+      "status": "success",
+      "duration_seconds": 38.81,
+      "source": "local_dataops_scheduler"
     }
   ]
 }
