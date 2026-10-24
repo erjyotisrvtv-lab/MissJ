@@ -276,6 +276,12 @@
       "status": "success",
       "duration_seconds": 57.87,
       "source": "local_dataops_scheduler"
+    },
+    {
+      "timestamp_utc": "2026-10-24T10:06:51.666809+00:00",
+      "status": "success",
+      "duration_seconds": 50.27,
+      "source": "local_dataops_scheduler"
     }
   ]
 }
