@@ -106,7 +106,16 @@ def metrics():
     if not METRICS_FILE.is_file():
         raise HTTPException(status_code=404, detail="Model metrics not found")
     return pd.read_csv(METRICS_FILE).to_dict(orient="records")
-
+@app.get("/model-info")
+def model_info():
+    return {
+        "model_name": "Network Intrusion Detection",
+        "model_type": "Machine Learning Classifier",
+        "framework": "scikit-learn",
+        "status": "API Available",
+        "metrics_endpoint": "/metrics",
+        "prediction_endpoint": "/predict"
+    }
 
 @app.post("/predict")
 def predict(traffic: TrafficInput):
