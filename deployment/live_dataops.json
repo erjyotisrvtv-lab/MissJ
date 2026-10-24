@@ -348,6 +348,13 @@
       "status": "success",
       "duration_seconds": 35.0,
       "source": "local_dataops_scheduler"
+    },
+    {
+      "timestamp_utc": "2026-10-24T12:24:08.457750+00:00",
+      "status": "success",
+      "duration_seconds": 0,
+      "source": "github_actions",
+      "run_id": "40093676558"
     }
   ]
 }
