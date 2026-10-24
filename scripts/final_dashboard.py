@@ -6,6 +6,11 @@ import requests
 import re
 import streamlit as st
 from pathlib import Path
+def get_secret(key, default=""):
+    try:
+        return st.secrets.get(key, default)
+    except (FileNotFoundError, KeyError):
+        return default
 
 BASE = Path(__file__).resolve().parent.parent
 
