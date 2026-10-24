@@ -73,18 +73,25 @@ def health():
 
 @app.get("/dataset-info")
 def dataset_info():
-    if not DATA_FILE.is_file():
-        raise HTTPException(status_code=404, detail="Dataset not found")
-    df = pd.read_csv(DATA_FILE)
+    if DATA_FILE.exists():
+        df = pd.read_csv(DATA_FILE)
+        return {
+            "dataset": "UNSW-NB15",
+            "total_records": len(df),
+            "total_columns": len(df.columns),
+            "target": "label",
+            "source": "dataset_file",
+            "dataset_file_available": True
+        }
+
     return {
         "dataset": "UNSW-NB15",
-        "total_records": len(df),
-        "total_columns": len(df.columns),
+        "total_records": 175341,
+        "total_columns": 45,
         "target": "label",
+        "source": "training_metadata",
+        "dataset_file_available": False
     }
-
-
-@app.get("/model-info")
 def model_info():
     return {
         "model": "Random Forest",
