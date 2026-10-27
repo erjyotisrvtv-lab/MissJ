@@ -227,9 +227,15 @@ def show_dataops():
         st.write("Trigger:", workflow.get("event", "Unknown"))
         st.markdown(f"[View workflow run]({workflow.get('html_url', GITHUB_RUNS_PAGE)})")
 
-
 def show_mlops():
     st.subheader("ML Model Evaluation")
+
+    st.caption(
+        "Local metrics CSV snapshot last modified: "
+        "25 October 2026, 19:20:26 IST "
+        "(file modification time, not confirmed model evaluation time)"
+    )
+
     df, error = read_csv_safely(METRICS)
     if df.empty:
         st.warning(f"ML metrics unavailable: {error or 'No records'}")
