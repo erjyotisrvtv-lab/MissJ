@@ -2,12 +2,6 @@
   "schema_version": 1,
   "runs": [
     {
-      "timestamp_utc": "2026-10-27T15:00:14.139609+00:00",
-      "status": "success",
-      "duration_seconds": 67.13,
-      "source": "local_dataops_scheduler"
-    },
-    {
       "timestamp_utc": "2026-10-27T15:02:08.740791+00:00",
       "status": "success",
       "duration_seconds": 61.66,
@@ -1349,6 +1343,13 @@
       "duration_seconds": 0,
       "source": "github_actions",
       "run_id": "41245788328"
+    },
+    {
+      "timestamp_utc": "2026-10-31T22:24:31.814783+00:00",
+      "status": "success",
+      "duration_seconds": 0,
+      "source": "github_actions",
+      "run_id": "41247971928"
     }
   ]
 }
